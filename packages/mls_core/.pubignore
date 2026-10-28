@@ -4,3 +4,37 @@ build/
 rust/target/
 coverage/
 .DS_Store
+._*
+
+# pub uses this file instead of .gitignore when preparing a package archive.
+# Never ship workstation settings, SDK caches, or signing material.
+.AppleDouble/
+.LSOverride
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.fvm/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+xcuserdata/
+*.xcuserstate
+DerivedData/
+.swiftpm/
+.build/
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.key
+*.pem
+*.mobileprovision
+*.provisionprofile
+key.properties
+local.properties

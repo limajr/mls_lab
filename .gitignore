@@ -1,7 +1,38 @@
 .DS_Store
+._*
+.AppleDouble/
+.LSOverride
+
+# Local IDE preferences and SDK installations (at any package depth)
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.fvm/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
 .dart_tool/
 build/
 target/
+coverage/
+
+# Xcode user state and generated native build configuration
+xcuserdata/
+*.xcuserstate
+DerivedData/
+.swiftpm/
+.build/
+Pods/
+.symlinks/
+**/Flutter/ephemeral/
+**/Flutter/Generated.xcconfig
+**/Flutter/flutter_export_environment.sh
+local.properties
+.gradle/
+.cxx/
 
 # Local configuration and signing material
 .env
@@ -10,5 +41,9 @@ target/
 *.jks
 *.keystore
 *.p12
+*.pfx
+*.key
+*.pem
 *.mobileprovision
+*.provisionprofile
 key.properties
