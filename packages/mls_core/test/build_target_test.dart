@@ -3,6 +3,13 @@ import 'package:test/test.dart';
 import '../hook/build.dart' show rustTarget;
 
 void main() {
+  test('Linux host architectures map to GNU Rust targets', () {
+    expect(rustTarget(OS.linux, Architecture.x64), 'x86_64-unknown-linux-gnu');
+    expect(
+      rustTarget(OS.linux, Architecture.arm64),
+      'aarch64-unknown-linux-gnu',
+    );
+  });
   test('Apple arm64 distinguishes Mac, simulator, and device', () {
     expect(rustTarget(OS.macOS, Architecture.arm64), 'aarch64-apple-darwin');
     expect(

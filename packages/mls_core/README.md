@@ -1,6 +1,6 @@
 # mls_core
 
-An educational Dart FFI package wrapping OpenMLS in Rust. Supports macOS, iOS Simulator, and Android builds from a Mac.
+An educational Dart FFI package wrapping OpenMLS in Rust. Supports macOS, iOS Simulator, and Android builds from a Mac, and native Linux package builds on Linux.
 
 ```dart
 import 'package:mls_core/mls_core.dart';

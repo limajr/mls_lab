@@ -1,8 +1,22 @@
 # MLS Learning Lab
 
+[![Validate](https://github.com/limajr/mls_lab/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/limajr/mls_lab/actions/workflows/validate.yml)
+
 A Flutter app and a reusable Dart FFI package backed by a small Rust/OpenMLS crate. Three users run on one device, with independent key stores and an in-memory relay. No server, account, network messaging, or keystore is required.
 
 **Targets: macOS, iOS Simulator, and Android, built from a Mac.** See [mobile setup and run instructions](docs/mobile.md). The optional Kotlin Keystore plugin remains a separate follow-up.
+
+## See it in action
+
+Real captures from the iPhone 17 Pro simulator. Bob receives the new ciphertext
+after removal, but OpenMLS rejects decryption; Alice and Charlie can still read it.
+
+<p>
+  <img src="docs/screenshots/phone-overview.png" width="300" alt="MLS lab on an iPhone: Alice at epoch zero, Bob and Charlie awaiting a Welcome" />
+  <img src="docs/screenshots/phone-eviction.png" width="300" alt="Completed eviction experiment: Bob cannot decrypt new MLS messages" />
+</p>
+
+[Reproduce the screenshots](docs/screenshots/README.md).
 
 ## Run
 
@@ -57,6 +71,8 @@ flutter analyze
 flutter test
 flutter build macos
 ```
+
+[GitHub Actions](https://github.com/limajr/mls_lab/actions/workflows/validate.yml) runs Rust tests, clippy, and Dart native integration tests on Ubuntu, plus Flutter analysis, widget tests, and a release build on macOS. CI does not run iOS or Android device tests.
 
 The tests exercise real OpenMLS operations. Dart tests cross the C ABI; the Flutter widget tests run all five steps at desktop and phone widths. The device integration test repeats the lesson using the actual target native library. Coverage includes joining with the wrong private material, tampering, replay, malformed input, disposal, key updates, and removal both with and without a removal notification.
 

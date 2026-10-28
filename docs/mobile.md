@@ -110,7 +110,7 @@ Host widget tests also exercise a 320-pixel-wide phone layout and a desktop layo
 
 Apple builds pass the SDK root and deployment version to Rust. Android builds use Flutter's NDK compiler directory and select its target/API-specific clang wrapper as Cargo's linker. The ELF link settings request 16 KB segment alignment. Flutter handles bundling, framework metadata, and signing; the hook preserves the same library basename across architectures. No manual copy into `jniLibs` or Xcode source membership is necessary.
 
-The build host is currently macOS. Windows/Linux hosts and web are not implemented. First builds download dependencies and compile each architecture; later builds use Cargo's cache. Rust source edits require a rebuild/restart, not just Flutter hot reload.
+Mobile builds currently require a macOS host. The Dart/Rust package also builds natively on Linux for CI; the Flutter demo has no Linux runner. Windows and web are not implemented. First builds download dependencies and compile each architecture; later builds use Cargo's cache. Rust source edits require a rebuild/restart, not just Flutter hot reload.
 
 ## Troubleshooting
 

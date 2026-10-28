@@ -3,15 +3,22 @@ import 'package:code_assets/code_assets.dart';
 import 'package:hooks/hooks.dart';
 
 /// Flutter invokes this once per target architecture. Rust is cross-compiled
-/// for the target, not the Mac running this script. Flutter bundles/signs the
+/// for the target, not the machine running this script. Flutter bundles/signs the
 /// resulting dylib (Apple framework) or .so (Android JNI library).
 void main(List<String> args) async {
   await build(args, (input, output) async {
     if (!input.config.buildCodeAssets) return;
-    if (!Platform.isMacOS) {
-      throw UnsupportedError('This lab currently builds from macOS.');
-    }
     final config = input.config.code;
+    final linuxHostBuild = Platform.isLinux && config.targetOS == OS.linux;
+    final appleHostBuild =
+        Platform.isMacOS &&
+        [OS.macOS, OS.iOS, OS.android].contains(config.targetOS);
+    if (!linuxHostBuild && !appleHostBuild) {
+      throw UnsupportedError(
+        'Supported builds: Linux on Linux; '
+        'macOS, iOS, and Android from macOS.',
+      );
+    }
     final target = rustTarget(
       config.targetOS,
       config.targetArchitecture,
@@ -103,7 +110,7 @@ void main(List<String> args) async {
         // Use the same basename for every architecture; Flutter combines Apple
         // slices itself. A simulator dylib is never interchangeable with a device dylib.
         file: buildDir.resolve(
-          '$target/release/libmls_core.${config.targetOS == OS.android ? 'so' : 'dylib'}',
+          '$target/release/libmls_core.${[OS.android, OS.linux].contains(config.targetOS) ? 'so' : 'dylib'}',
         ),
       ),
     );
@@ -121,6 +128,8 @@ void main(List<String> args) async {
 /// Explicit target selection prevents accidentally shipping a host binary.
 String rustTarget(OS os, Architecture architecture, {IOSSdk? sdk}) =>
     switch ((os, architecture)) {
+      (OS.linux, Architecture.x64) => 'x86_64-unknown-linux-gnu',
+      (OS.linux, Architecture.arm64) => 'aarch64-unknown-linux-gnu',
       (OS.macOS, Architecture.arm64) => 'aarch64-apple-darwin',
       (OS.macOS, Architecture.x64) => 'x86_64-apple-darwin',
       (OS.iOS, Architecture.arm64) when sdk == IOSSdk.iPhoneSimulator =>
@@ -150,7 +159,7 @@ Future<String> findRustup() async {
     // Report a single actionable setup error below.
   }
   throw StateError(
-    'rustup is required. Run brew install rustup, then follow '
+    'rustup is required (brew install rustup on macOS). Follow '
     'docs/mobile.md to install the pinned compiler and target libraries.',
   );
 }

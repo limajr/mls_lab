@@ -12,7 +12,7 @@ The bridge deliberately exports only two C functions, `mls_request` and `mls_fre
 
 1. `flutter pub get` resolves the app and local package.
 2. `flutter run` discovers `packages/mls_core/hook/build.dart` through Dart's native assets mechanism.
-3. The hook reads the requested OS and architecture. It distinguishes macOS, iOS Simulator, iOS device, and Android target triples; unsupported targets fail explicitly.
+3. The hook reads the requested OS and architecture. It distinguishes macOS, iOS Simulator, iOS device, Android, and native Linux target triples; unsupported targets fail explicitly.
 4. Cargo compiles the Rust crate with `--release --locked` for the requested OS and architecture, using the exact Cargo and rustc paths from the pinned rustup toolchain. Its output goes in the hook's shared cache directory.
 5. The hook registers `libmls_core.dylib` (Apple) or `libmls_core.so` (Android) as a bundled `CodeAsset` named `mls_core_bindings`.
 6. Flutter copies and signs the native library as part of the app bundle.
@@ -40,3 +40,11 @@ The rustup installation supplies the host and mobile target standard libraries. 
 Mobile target selection and native packaging are implemented. See [mobile setup](mobile.md) for the toolchain matrix, Android NDK linker configuration, iOS Simulator setup, and device integration tests. The app pins Android NDK 28.2.13676358 and iOS 15.0 as its minimum deployment target.
 
 Web is not supported by this `dart:ffi` package. A web implementation needs a separate WebAssembly binding and storage design.
+
+## Continuous integration
+
+`.github/workflows/validate.yml` pins Flutter 3.47.8 and reads the Rust version
+from the crate's toolchain file. Ubuntu runs Cargo tests/clippy and Dart tests
+against a native Linux `.so`. macOS runs Flutter analysis, widget tests, and
+`flutter build macos --release`. The workflow runs on main, pull requests,
+version tags, and manual dispatch. Mobile runtime checks remain separate.
