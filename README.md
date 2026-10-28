@@ -75,7 +75,7 @@ Dependency lockfiles are included. The package is experimental and marked `publi
 
 ## License and contributions
 
-MIT © 2026 [Lima Junior](https://github.com/limajr). See [LICENSE](LICENSE),
+MIT © 2026 [Jose de Assis Lima Junior](https://github.com/limajr). See [LICENSE](LICENSE),
 [third-party components](THIRD_PARTY.md), [contributing](CONTRIBUTING.md),
 and [security scope](SECURITY.md).
 

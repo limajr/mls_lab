@@ -34,5 +34,5 @@ Run the standalone example on macOS:
 dart run example/mls_core_example.dart
 ```
 
-MIT © 2026 [Lima Junior](https://github.com/limajr). See [LICENSE](LICENSE).
+MIT © 2026 [Jose de Assis Lima Junior](https://github.com/limajr). See [LICENSE](LICENSE).
 This package is not yet published; `publish_to: none` is intentional.
