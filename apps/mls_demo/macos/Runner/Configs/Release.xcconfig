@@ -1,0 +1,5 @@
+#include "../../Flutter/Flutter-Release.xcconfig"
+#include "Warnings.xcconfig"
+
+// Keep desktop builds on the host architecture; mobile targets are selected separately.
+ARCHS = $(NATIVE_ARCH_ACTUAL)

@@ -1,0 +1,6 @@
+# Keep source and Cargo.lock; exclude local caches and compiled artifacts.
+.dart_tool/
+build/
+rust/target/
+coverage/
+.DS_Store

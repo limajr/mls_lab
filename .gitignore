@@ -1,0 +1,14 @@
+.DS_Store
+.dart_tool/
+build/
+target/
+
+# Local configuration and signing material
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.mobileprovision
+key.properties
